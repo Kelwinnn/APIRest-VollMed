@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 public class MedicoController {
 
     @PostMapping
-    public void cadastrar(@RequestBody DadosCadastroMedicos dados){
+    public void cadastrarMedico(@RequestBody DadosCadastroMedicos dados){
         System.out.println(dados.crm());
     }
 
