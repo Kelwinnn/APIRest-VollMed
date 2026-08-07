@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_db
+
+    environment:
+      POSTGRES_USER: kelwin
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: DB_VOLLMED
+
+    ports:
+      - "5431:5431"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
