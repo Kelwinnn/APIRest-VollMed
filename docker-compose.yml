@@ -12,7 +12,7 @@ services:
       - "5431:5431"
 
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
 
     restart: unless-stopped
 
