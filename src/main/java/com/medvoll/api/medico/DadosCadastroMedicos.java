@@ -13,6 +13,8 @@ public record DadosCadastroMedicos(
         @Email
         String email,
         @NotBlank
+        String telefone,
+        @NotBlank
         @Pattern(regexp = "\\d{4,6}") //Uma expressão regular
         String crm,
         @NotNull //Não é utilizado o NotBlank, pois não é uma String, uma vez que ele vai ser pego de uma Classe ENUM e o NotBlank só pode ser utilizado para Strings.
