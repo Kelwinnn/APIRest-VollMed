@@ -1,6 +1,7 @@
 package com.medvoll.api.medico;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ public class MedicoController {
 
     @PostMapping
     @Transactional
-    public void cadastrarMedico(@RequestBody DadosCadastroMedicos dados){
+    public void cadastrarMedico(@RequestBody @Valid DadosCadastroMedicos dados){ //Sempre lembrar de colocar a anotação Valid para que utilize o bean validation que foi configurado na classe.
         //Salvando os dados dentro do repository, recebendo os dados do Json atraves do metodo construtor do medico e passando para o Repository
         repository.save(new Medico(dados));
     }
