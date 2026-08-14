@@ -5,6 +5,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("medicos")
 public class MedicoController {
@@ -18,6 +20,11 @@ public class MedicoController {
     public void cadastrarMedico(@RequestBody @Valid DadosCadastroMedicos dados){ //Sempre lembrar de colocar a anotação Valid para que utilize o bean validation que foi configurado na classe.
         //Salvando os dados dentro do repository, recebendo os dados do Json atraves do metodo construtor do medico e passando para o Repository
         repository.save(new Medico(dados));
+    }
+
+    @GetMapping
+    public List<DadosListagemMedico> listar(){
+        return repository.findAll().stream().map(DadosListagemMedico::new).toList();
     }
 
 }

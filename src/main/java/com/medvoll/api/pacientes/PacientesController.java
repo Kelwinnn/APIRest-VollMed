@@ -16,6 +16,7 @@ public class PacientesController {
     @PostMapping
     public void cadastrarPaciente(@RequestBody DadosCadastroPaciente dados){
         repository.save(new Paciente(dados));
-
     }
+
+
 }
