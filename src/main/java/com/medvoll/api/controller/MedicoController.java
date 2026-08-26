@@ -32,7 +32,7 @@ public class MedicoController {
     //Criou um metodo que utiliza o Page<Classe do Pageable> para listar as informações e setou como default os quantas informações irão aparecer de size e ordenação
     public Page<DadosListagemMedico> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable pagination){
         //O metodo retornara o meu repository e irá pegar todas as informações que estão no Dados de listagem
-        return repository.findAll(pagination).map(DadosListagemMedico::new);
+        return repository.findAllByAtivoTrue(pagination).map(DadosListagemMedico::new);
     }
 
     //Criando um metodo para editar / PUT
@@ -50,7 +50,8 @@ public class MedicoController {
     @Transactional
     //Utilizando a anotação de PahtVariable, o Spring vai entender que o ID que eu estou passando na minha URL da pagina vai ser o id que eu vou precisar excluir
     public void excluir(@PathVariable Long id){
-        repository.deleteById(id);
+        var medico = repository.getReferenceById(id);
+        medico.excluir();
     }
 
 }
