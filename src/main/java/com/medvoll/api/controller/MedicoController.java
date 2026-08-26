@@ -44,4 +44,13 @@ public class MedicoController {
         medico.atualiazarInformacoes(dados);
     }
 
+
+    //Metodo para deletar informações / DELETE
+    @DeleteMapping("/{id}")
+    @Transactional
+    //Utilizando a anotação de PahtVariable, o Spring vai entender que o ID que eu estou passando na minha URL da pagina vai ser o id que eu vou precisar excluir
+    public void excluir(@PathVariable Long id){
+        repository.deleteById(id);
+    }
+
 }
