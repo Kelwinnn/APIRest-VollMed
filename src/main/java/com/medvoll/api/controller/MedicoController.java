@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 
 @RestController
@@ -23,9 +24,13 @@ public class MedicoController {
     @PostMapping
     //O @Transactional garante que um conjunto de operações no banco de dados seja executado como uma única unidade: ou tudo é salvo com sucesso, ou tudo é cancelado em caso de erro.
     @Transactional
-    public void cadastrarMedico(@RequestBody @Valid DadosCadastroMedicos dados){ //Sempre lembrar de colocar a anotação Valid para que utilize o bean validation que foi configurado na classe.
+    public ResponseEntity cadastrarMedico(@RequestBody @Valid DadosCadastroMedicos dados, UriComponentsBuilder uriBuilder){ //Sempre lembrar de colocar a anotação Valid para que utilize o bean validation que foi configurado na classe.
         //Salvando os dados dentro do repository, recebendo os dados do Json atraves do metodo construtor do medico e passando para o Repository
-        repository.save(new Medico(dados));
+        var medico = new Medico(dados);
+        repository.save(medico);
+        var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoMedico(medico));
     }
 
     //Metodo para pegar as informações
