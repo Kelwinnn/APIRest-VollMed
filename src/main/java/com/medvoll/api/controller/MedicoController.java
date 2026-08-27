@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -38,10 +39,12 @@ public class MedicoController {
     //Criando um metodo para editar / PUT
     @PutMapping
     @Transactional
-    public void atualizar(@RequestBody @Valid DadosAtualizacaoMedicos dados){
+    //Utilizanodo o ResponseEntity para devolver uma nova requisição.
+    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoMedicos dados){
         //Guarda em uma variavel o id do medico, através do repository
         var medico = repository.getReferenceById(dados.id());
         medico.atualiazarInformacoes(dados);
+        return ResponseEntity.noContent().build();
     }
 
 
