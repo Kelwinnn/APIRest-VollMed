@@ -31,9 +31,10 @@ public class MedicoController {
     //Metodo para pegar as informações
     @GetMapping
     //Criou um metodo que utiliza o Page<Classe do Pageable> para listar as informações e setou como default os quantas informações irão aparecer de size e ordenação
-    public Page<DadosListagemMedico> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable pagination){
+    public ResponseEntity<Page<DadosListagemMedico>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable pagination){
         //O metodo retornara o meu repository e irá pegar todas as informações que estão no Dados de listagem
-        return repository.findAllByAtivoTrue(pagination).map(DadosListagemMedico::new);
+        var page =  repository.findAllByAtivoTrue(pagination).map(DadosListagemMedico::new);
+        return ResponseEntity.ok(page);
     }
 
     //Criando um metodo para editar / PUT
@@ -44,7 +45,8 @@ public class MedicoController {
         //Guarda em uma variavel o id do medico, através do repository
         var medico = repository.getReferenceById(dados.id());
         medico.atualiazarInformacoes(dados);
-        return ResponseEntity.noContent().build();
+        //Importante -> Não é recomendado devolver e receber entidades JPA no Controller.
+        return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
     }
 
 
