@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -35,8 +36,9 @@ public class PacientesController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void inativar(@PathVariable Long id){
+    public ResponseEntity inativar(@PathVariable Long id){
         var paciente = repository.getReferenceById(id);
         paciente.inativar();
+        return ResponseEntity.noContent().build();
     }
 }
