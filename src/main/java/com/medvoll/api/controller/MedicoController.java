@@ -30,6 +30,7 @@ public class MedicoController {
         repository.save(medico);
         var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
 
+        //A URI vai pegar o caminho da minha url para listar as informações que foram cadastradas e retonar os cabeçalhos e retorna um codgio 201 ok.
         return ResponseEntity.created(uri).body(new DadosDetalhamentoMedico(medico));
     }
 
@@ -65,6 +66,16 @@ public class MedicoController {
         medico.excluir();
         //Boa pratica para retornar valor de 204 que não vai retornar nenhum conteudo
         return ResponseEntity.noContent().build();
+    }
+
+    //Metodo para deletar informações / DELETE
+    @GetMapping("/{id}")
+    //Utilizanodo o ResponseEntity para devolver uma nova requisição
+    //Utilizando a anotação de PahtVariable, o Spring vai entender que o ID que eu estou passando na minha URL da pagina vai ser o id que eu vou precisar excluir
+    public ResponseEntity detalhar(@PathVariable Long id){
+        var medico = repository.getReferenceById(id);
+        //Boa pratica para retornar valor de 204 que não vai retornar nenhum conteudo
+        return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
     }
 
 }
