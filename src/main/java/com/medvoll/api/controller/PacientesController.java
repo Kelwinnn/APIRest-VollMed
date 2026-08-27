@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("pacientes")
@@ -18,15 +19,18 @@ public class PacientesController {
     @Autowired
     private PacienteRepository repository;
 
-    @PostMapping
-    public void cadastrarPaciente(@RequestBody DadosCadastroPaciente dados){
-        repository.save(new Paciente(dados));
-    }
-
     @GetMapping
     public ResponseEntity<Page<DadosListagemPaciente>> listar(@PageableDefault(size = 10, page = 0, sort = {"nome"}) Pageable pagination){
        var page =  repository.findAllByAtivoTrue(pagination).map(DadosListagemPaciente::new);
        return ResponseEntity.ok(page);
+    }
+
+    @PostMapping
+    public ResponseEntity cadastrarPaciente(@RequestBody DadosCadastroPaciente dados, UriComponentsBuilder uriBuilder){
+        var paciente = new Paciente(dados);
+        repository.save(paciente);
+        var uri = uriBuilder.path("/pacientes/{id}").buildAndExpand(paciente.getId()).toUri();
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoPaciente(paciente));
     }
 
     @PutMapping
