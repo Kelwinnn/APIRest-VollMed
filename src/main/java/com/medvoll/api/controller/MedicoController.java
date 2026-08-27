@@ -39,7 +39,7 @@ public class MedicoController {
     //Criando um metodo para editar / PUT
     @PutMapping
     @Transactional
-    //Utilizanodo o ResponseEntity para devolver uma nova requisição.
+    //Utilizanodo o ResponseEntity para devolver uma nova requisição
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoMedicos dados){
         //Guarda em uma variavel o id do medico, através do repository
         var medico = repository.getReferenceById(dados.id());
@@ -51,10 +51,13 @@ public class MedicoController {
     //Metodo para deletar informações / DELETE
     @DeleteMapping("/{id}")
     @Transactional
+    //Utilizanodo o ResponseEntity para devolver uma nova requisição
     //Utilizando a anotação de PahtVariable, o Spring vai entender que o ID que eu estou passando na minha URL da pagina vai ser o id que eu vou precisar excluir
-    public void excluir(@PathVariable Long id){
+    public ResponseEntity excluir(@PathVariable Long id){
         var medico = repository.getReferenceById(id);
         medico.excluir();
+        //Boa pratica para retornar valor de 204 que não vai retornar nenhum conteudo
+        return ResponseEntity.noContent().build();
     }
 
 }
