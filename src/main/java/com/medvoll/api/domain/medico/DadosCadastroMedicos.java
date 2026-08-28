@@ -1,6 +1,6 @@
-package com.medvoll.api.medico;
+package com.medvoll.api.domain.medico;
 
-import com.medvoll.api.endereco.DadosEndereco;
+import com.medvoll.api.domain.endereco.DadosEndereco;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 

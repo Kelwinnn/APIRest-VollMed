@@ -1,4 +1,4 @@
-package com.medvoll.api.endereco;
+package com.medvoll.api.domain.endereco;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,6 @@
 package com.medvoll.api.controller;
 
-import com.medvoll.api.medico.DadosDetalhamentoMedico;
-import com.medvoll.api.pacientes.*;
+import com.medvoll.api.domain.pacientes.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

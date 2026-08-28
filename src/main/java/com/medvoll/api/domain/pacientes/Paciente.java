@@ -1,6 +1,6 @@
-package com.medvoll.api.pacientes;
+package com.medvoll.api.domain.pacientes;
 
-import com.medvoll.api.endereco.Endereco;
+import com.medvoll.api.domain.endereco.Endereco;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;

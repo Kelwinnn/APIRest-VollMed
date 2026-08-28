@@ -1,4 +1,4 @@
-package com.medvoll.api.medico;
+package com.medvoll.api.domain.medico;
 
 public enum Especialidade {
     ORTOPEDIA,

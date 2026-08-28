@@ -1,4 +1,4 @@
-package com.medvoll.api.pacientes;
+package com.medvoll.api.domain.pacientes;
 
 
 
