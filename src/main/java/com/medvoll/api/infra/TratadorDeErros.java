@@ -17,6 +17,7 @@ public class TratadorDeErros {
         return ResponseEntity.notFound().build();
     }
 
+    //Tratando quando o usuário não enviar uma informação, ele retorna um erro de 400
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity tratarErro400(MethodArgumentNotValidException ex){
         var erros = ex.getFieldErrors();
