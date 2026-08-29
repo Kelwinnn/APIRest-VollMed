@@ -28,6 +28,7 @@ public class SecurityConfigurations {
         return configuration.getAuthenticationManager();
     }
 
+    //Serve para que o java entenda que a senha que sera passada será uma que já foi transformada para um HASH.
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
