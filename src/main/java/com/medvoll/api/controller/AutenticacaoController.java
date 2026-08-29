@@ -2,6 +2,7 @@ package com.medvoll.api.controller;
 
 import com.medvoll.api.domain.user.DadosAutenticacao;
 import com.medvoll.api.domain.user.User;
+import com.medvoll.api.infra.security.DadosTokenJWT;
 import com.medvoll.api.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,10 @@ public class AutenticacaoController {
 
     @PostMapping
     public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacao dados){
-        var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
-        var authentication = manager.authenticate(token);
+        var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
+        var authentication = manager.authenticate(authenticationToken);
+        var tokenJWT = tokenService.gerarToken((User) authentication.getPrincipal());
 
-        return ResponseEntity.ok(tokenService.gerarToken((User) authentication.getPrincipal()));
+        return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
     }
 }
